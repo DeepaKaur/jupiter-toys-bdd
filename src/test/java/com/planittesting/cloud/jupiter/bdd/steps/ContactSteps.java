@@ -38,7 +38,7 @@ public class ContactSteps {
     }
 
     @Given("A user is on home page")
-    public void navigateToHomePage() {
+    public void navigateToHome() {
         driver.get("http://jupiter.cloud.planittesting.com");
     }
 
