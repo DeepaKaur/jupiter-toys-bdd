@@ -47,7 +47,6 @@ public class ShopSteps {
 
     @When("User buys {string} Funny cow")
     public void buyFunnyCows(String quantity) {
-        System.out.println("buying cows");
         WebElement cow = driver.findElement(By.xpath("//h4[contains(text(),'Funny Cow')]/parent::*"));
         System.out.println(cow.getText());
         for (int i = 1; i <= Integer.parseInt(quantity); i++) {
@@ -55,9 +54,25 @@ public class ShopSteps {
         }
     }
 
+
+    @When("User buys {string} Stuffed Frog")
+    public void buyFrog(String quantity) {
+        WebElement frog = driver.findElement(By.xpath("//h4[contains(text(),'Stuffed Frog')]/parent::*"));
+        for (int i = 1; i <= Integer.parseInt(quantity); i++) {
+            frog.findElement(By.linkText("Buy")).click();
+        }
+    }
+
+    @And("User buys {string} Valentine Bear")
+    public void buyBear(String quantity) {
+        WebElement bear = driver.findElement(By.xpath("//h4[contains(text(),'Valentine Bear')]/parent::*"));
+        for (int i = 1; i <= Integer.parseInt(quantity); i++) {
+            bear.findElement(By.linkText("Buy")).click();
+        }
+    }
+
     @And("User buys {string} Fluffy Bunny")
     public void buyBunny(String quantity) {
-        System.out.println("buying bunny");
         WebElement bunny = driver.findElement(By.xpath("//h4[contains(text(),'Fluffy Bunny')]/parent::*"));
         for (int i = 1; i <= Integer.parseInt(quantity); i++) {
             bunny.findElement(By.linkText("Buy")).click();
@@ -88,4 +103,17 @@ public class ShopSteps {
         Assert.assertEquals(expectedItems, totalItems);
     }
 
+    @Then("verify that the subtotal of each product is correct")
+    public void verifyTotal() {
+        List<WebElement> items = driver.findElements(By.xpath("//tbody/tr"));
+        for (WebElement item : items) {
+            List<WebElement> details = item.findElements(By.xpath("./td"));
+            String count = details.get(2).findElement(By.xpath("./input")).getAttribute("value");
+            String price = details.get(1).getText().substring(1);
+            String subtotal = details.get(3).getText().substring(1);
+            double totalprice = Integer.parseInt(count) * Double.parseDouble(price);
+            System.out.println(totalprice + " totalprice" + subtotal + "subtotal");
+            Assert.assertEquals(Double.parseDouble(subtotal), totalprice,0.01);
+        }
+     }
 }
