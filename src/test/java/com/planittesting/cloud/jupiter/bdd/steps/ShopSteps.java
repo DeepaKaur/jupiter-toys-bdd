@@ -1,6 +1,6 @@
 package com.planittesting.cloud.jupiter.bdd.steps;
 
-import io.cucumber.datatable.DataTable;
+import com.planittesting.cloud.jupiter.bdd.common.Util;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -11,7 +11,6 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

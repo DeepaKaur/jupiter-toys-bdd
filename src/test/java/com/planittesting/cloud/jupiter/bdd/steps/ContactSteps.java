@@ -1,5 +1,6 @@
 package com.planittesting.cloud.jupiter.bdd.steps;
 
+import com.planittesting.cloud.jupiter.bdd.common.Util;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -10,7 +11,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -40,7 +40,6 @@ public class ContactSteps {
 
     @And("navigates to contact page")
     public void navigateToContacts() {
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElement(By.linkText("Contact")).click();
     }
 
@@ -70,7 +69,6 @@ public class ContactSteps {
 
     @And("User submits the page")
     public void submitPage() {
-        System.out.println("Submitting the page");
         driver.findElement(By.linkText("Submit")).click();
     }
 
@@ -97,7 +95,7 @@ public class ContactSteps {
 
     @Then("Successful submission message {string} is displayed")
     public void successMessage(String message) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 120);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class = 'alert alert-success'] ")));
         String actualMessage = driver.findElement(By.xpath("//div[@class = 'alert alert-success'] ")).getText();
         Assert.assertEquals(message, actualMessage);
