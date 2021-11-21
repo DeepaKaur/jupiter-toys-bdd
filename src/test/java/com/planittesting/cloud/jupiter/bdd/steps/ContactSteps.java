@@ -22,11 +22,7 @@ public class ContactSteps {
     @Before
     public void initializeWebDriver() {
         if (driver == null) {
-            String driverPath = ContactSteps.class
-                    .getClassLoader().getResource("chromedriver.exe").getPath();
-            System.setProperty("webdriver.chrome.driver", driverPath);
-            driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver = Util.getWebDriver();
         }
     }
 
@@ -101,7 +97,7 @@ public class ContactSteps {
 
     @Then("Successful submission message {string} is displayed")
     public void successMessage(String message) {
-        WebDriverWait wait = new WebDriverWait(driver,30);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class = 'alert alert-success'] ")));
         String actualMessage = driver.findElement(By.xpath("//div[@class = 'alert alert-success'] ")).getText();
         Assert.assertEquals(message, actualMessage);

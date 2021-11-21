@@ -22,11 +22,7 @@ public class ShopSteps {
     @Before
     public void initializeWebDriver() {
         if (driver == null) {
-            String driverPath = ContactSteps.class
-                    .getClassLoader().getResource("chromedriver.exe").getPath();
-            System.setProperty("webdriver.chrome.driver", driverPath);
-            driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver = Util.getWebDriver();
         }
     }
 
@@ -48,12 +44,10 @@ public class ShopSteps {
     @When("User buys {string} Funny cow")
     public void buyFunnyCows(String quantity) {
         WebElement cow = driver.findElement(By.xpath("//h4[contains(text(),'Funny Cow')]/parent::*"));
-        System.out.println(cow.getText());
         for (int i = 1; i <= Integer.parseInt(quantity); i++) {
             cow.findElement(By.linkText("Buy")).click();
         }
     }
-
 
     @When("User buys {string} Stuffed Frog")
     public void buyFrog(String quantity) {
@@ -112,8 +106,7 @@ public class ShopSteps {
             String price = details.get(1).getText().substring(1);
             String subtotal = details.get(3).getText().substring(1);
             double totalprice = Integer.parseInt(count) * Double.parseDouble(price);
-            System.out.println(totalprice + " totalprice" + subtotal + "subtotal");
-            Assert.assertEquals(Double.parseDouble(subtotal), totalprice,0.01);
+            Assert.assertEquals(Double.parseDouble(subtotal), totalprice, 0.01);
         }
-     }
+    }
 }
