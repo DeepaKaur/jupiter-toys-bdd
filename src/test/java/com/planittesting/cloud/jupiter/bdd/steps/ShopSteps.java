@@ -40,35 +40,12 @@ public class ShopSteps {
     }
 
 
-    @When("User buys {string} Funny cow")
-    public void buyFunnyCows(String quantity) {
-        WebElement cow = driver.findElement(By.xpath("//h4[contains(text(),'Funny Cow')]/parent::*"));
+    @When("User buys {string} {string}")
+    public void buyItems(String quantity, String Name) {
+        String xpath = "//h4[contains(text(),'" + Name + "')]/parent::*";
+        WebElement shopitem = driver.findElement(By.xpath(xpath));
         for (int i = 1; i <= Integer.parseInt(quantity); i++) {
-            cow.findElement(By.linkText("Buy")).click();
-        }
-    }
-
-    @When("User buys {string} Stuffed Frog")
-    public void buyFrog(String quantity) {
-        WebElement frog = driver.findElement(By.xpath("//h4[contains(text(),'Stuffed Frog')]/parent::*"));
-        for (int i = 1; i <= Integer.parseInt(quantity); i++) {
-            frog.findElement(By.linkText("Buy")).click();
-        }
-    }
-
-    @And("User buys {string} Valentine Bear")
-    public void buyBear(String quantity) {
-        WebElement bear = driver.findElement(By.xpath("//h4[contains(text(),'Valentine Bear')]/parent::*"));
-        for (int i = 1; i <= Integer.parseInt(quantity); i++) {
-            bear.findElement(By.linkText("Buy")).click();
-        }
-    }
-
-    @And("User buys {string} Fluffy Bunny")
-    public void buyBunny(String quantity) {
-        WebElement bunny = driver.findElement(By.xpath("//h4[contains(text(),'Fluffy Bunny')]/parent::*"));
-        for (int i = 1; i <= Integer.parseInt(quantity); i++) {
-            bunny.findElement(By.linkText("Buy")).click();
+            shopitem.findElement(By.linkText("Buy")).click();
         }
     }
 
